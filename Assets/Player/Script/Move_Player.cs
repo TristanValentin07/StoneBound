@@ -41,8 +41,6 @@ public class Move_Player : MonoBehaviour
         _animator.SetBool("isJumping", !_isGrounded);
 
         _moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
-
-        RotatePlayerToCamera();
     }
 
     void FixedUpdate()
@@ -52,13 +50,6 @@ public class Move_Player : MonoBehaviour
             Move();
         }
         CheckGroundStatus();
-    }
-
-    private void RotatePlayerToCamera()
-    {
-        Vector3 cameraForward = cameraTransform.forward;
-        cameraForward.y = 0;
-        transform.rotation = Quaternion.LookRotation(cameraForward);
     }
 
     private void Move()
