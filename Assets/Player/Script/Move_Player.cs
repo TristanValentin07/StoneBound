@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Move_Player : MonoBehaviour
@@ -8,24 +9,62 @@ public class Move_Player : MonoBehaviour
     public Transform cameraTransform;
     public bool showRaycast = false;
     public float raycastHeight = 0.1f;
+    public float sprintMultiplier = 2f;
 
     private Rigidbody _rigidbody;
     private Vector3 _moveDirection;
     private bool _isGrounded;
     private Animator _animator;
+    private bool isSprinting = false;
+
+    private Stamina_Manager staminaManager;
+    private Player_Data playerData;
 
     void Start()
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+
         if (_rigidbody != null)
         {
             _rigidbody.useGravity = true;
             _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
+
+        // Initialisation de Player_Data
+        playerData = new Player_Data();
+
+        // Trouver Stamina_Manager dans la scène
+        staminaManager = FindAnyObjectByType<Stamina_Manager>();
+        if (staminaManager != null)
+        {
+            staminaManager.SetStaminaToPlayer(playerData);
+        }
+        else
+        {
+            Debug.LogError("❌ Stamina_Manager non trouvé dans la scène !");
+        }
     }
 
     void Update()
+    {
+        HandleSprint();
+        HandleInput();
+        
+        // Mise à jour de l'UI de la stamina
+        if (staminaManager != null)
+        {
+            staminaManager.UpdateStaminaBar();
+        }
+    }
+
+    void FixedUpdate()
+    {
+        Move();
+        CheckGroundStatus();
+    }
+
+    private void HandleInput()
     {
         float horizontal = 0f;
         float vertical = 0f;
@@ -35,7 +74,7 @@ public class Move_Player : MonoBehaviour
         if (Input.GetKey(KeyCode.A) && _isGrounded) horizontal = -1f;
         if (Input.GetKey(KeyCode.D) && _isGrounded) horizontal = 1f;
         if (Input.GetKeyDown(KeyCode.Space) && _isGrounded) Jump();
-        
+
         _animator.SetFloat("horizontal", horizontal);
         _animator.SetFloat("vertical", vertical);
         _animator.SetBool("isJumping", !_isGrounded);
@@ -43,44 +82,74 @@ public class Move_Player : MonoBehaviour
         _moveDirection = new Vector3(horizontal, 0f, vertical).normalized;
     }
 
-    void FixedUpdate()
+    private void Move()
     {
         if (_moveDirection != Vector3.zero)
         {
-            Move();
+            float speed = isSprinting ? moveSpeed * sprintMultiplier : moveSpeed;
+            Vector3 cameraForward = cameraTransform.forward;
+            Vector3 cameraRight = cameraTransform.right;
+
+            cameraForward.y = 0f;
+            cameraRight.y = 0f;
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+
+            Vector3 moveDirection = cameraForward * _moveDirection.z + cameraRight * _moveDirection.x;
+            Vector3 velocity = moveDirection * speed;
+            velocity.y = _rigidbody.linearVelocity.y;
+            _rigidbody.linearVelocity = velocity;
         }
-        CheckGroundStatus();
+        else
+        {
+            // ✅ Stop le mouvement immédiatement
+            if (_isGrounded)
+            {
+                _rigidbody.linearVelocity = new Vector3(0f, _rigidbody.linearVelocity.y, 0f);
+            }
+        }
     }
 
-    private void Move()
+    private void HandleSprint()
     {
-        Vector3 cameraForward = cameraTransform.forward;
-        Vector3 cameraRight = cameraTransform.right;
+        if (Input.GetKey(KeyCode.LeftShift) && playerData.currentStamina > 0)
+        {
+            isSprinting = true;
+            playerData.currentStamina -= playerData.staminaDrainRate * Time.deltaTime;
+        }
+        else
+        {
+            isSprinting = false;
+            if (_isGrounded && _rigidbody.linearVelocity.magnitude < 0.1f) // Vérifie que le joueur est immobile avant de recharger
+            {
+                playerData.currentStamina += playerData.staminaRecoveryRate * Time.deltaTime;
+            }
+        }
 
-        cameraForward.y = 0f;
-        cameraRight.y = 0f;
-
-        cameraForward.Normalize();
-        cameraRight.Normalize();
-
-        Vector3 moveDirection = cameraForward * _moveDirection.z + cameraRight * _moveDirection.x;
-
-        Vector3 velocity = moveDirection * moveSpeed;
-        velocity.y = _rigidbody.linearVelocity.y;
-        _rigidbody.linearVelocity = velocity;
+        playerData.currentStamina = Mathf.Clamp(playerData.currentStamina, 0, playerData.maxStamina);
+        
+        //mise à jour de l'UI
+        if (staminaManager != null)
+        {
+            staminaManager.UpdateStaminaBar();
+        }
     }
 
     private void Jump()
     {
-        _isGrounded = false;
-        float jumpForce = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        if (playerData.currentStamina > 5)
+        {
+            playerData.currentStamina -= 5f;
+            _isGrounded = false;
+            float jumpForce = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
 
     private void CheckGroundStatus()
     {
         Collider col = GetComponent<Collider>();
-        
+
         if (col == null)
         {
             _isGrounded = false;

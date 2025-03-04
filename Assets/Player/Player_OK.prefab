@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7025441962750751230, guid: d5ae4072abf190b4ab095bf9613a91ee, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.09899997
+      value: 0.207
       objectReference: {fileID: 0}
     - target: {fileID: 7025441962750751230, guid: d5ae4072abf190b4ab095bf9613a91ee, type: 3}
       propertyPath: m_LocalRotation.w
@@ -92,6 +92,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 8f126327268a4af4086c7514ef65bb04, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f126327268a4af4086c7514ef65bb04, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 8f126327268a4af4086c7514ef65bb04, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8f126327268a4af4086c7514ef65bb04, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -188,7 +200,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.32265615
-  m_Height: 2.0056193
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: -0.02961433, y: 0.8540448, z: 0.008968353}
 --- !u!114 &5937189437412900266
@@ -203,12 +215,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae6e5240417ee54a8ea18ea53a6d199, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 6
   gravity: -9.81
-  jumpHeight: 0.5
+  jumpHeight: 2
   cameraTransform: {fileID: 7030164624479434673}
-  showRaycast: 0
-  raycastHeight: 1.5
+  showRaycast: 1
+  raycastHeight: 2
+  sprintMultiplier: 2
 --- !u!54 &2971510850594713849
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -219,7 +232,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
