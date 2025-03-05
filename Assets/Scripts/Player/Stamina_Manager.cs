@@ -19,7 +19,6 @@ public class Stamina_Manager : MonoBehaviour
         if (staminaBar != null && playerData != null)
         {
             staminaBar.value = playerData.currentStamina / playerData.maxStamina;
-            Debug.Log("🔋 Mise à jour de la barre de stamina : " + staminaBar.value);
         }
         else
         {

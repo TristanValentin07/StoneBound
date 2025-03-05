@@ -6,8 +6,11 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab;
     public Transform[] spawnPoints;
     public float spawnRate = 10f;
+    public int maxEnemies = 3;
 
     private bool spawning = true;
+    private bool maxSpawned = false;
+    private int counter = 0;
 
     void Start()
     {
@@ -16,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
-        while (spawning)
+        while (spawning && maxSpawned == false)
         {
             yield return new WaitForSeconds(spawnRate);
 
@@ -24,6 +27,11 @@ public class EnemySpawner : MonoBehaviour
             {
                 Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
                 Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                counter++;
+                if (counter >= maxEnemies)
+                {
+                    maxSpawned = true;
+                }
             }
             else
             {
