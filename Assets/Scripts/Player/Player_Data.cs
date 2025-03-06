@@ -9,7 +9,7 @@ public class Player_Data
     public float currentStamina;
     
     public float staminaDrainRate = 10f;
-    public float staminaRecoveryRate = 8f;
+    public float staminaRecoveryRate = 15f;
     
     public Player_Data()
     {
