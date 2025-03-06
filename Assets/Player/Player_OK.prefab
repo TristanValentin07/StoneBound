@@ -223,7 +223,7 @@ MonoBehaviour:
   gravity: -9.81
   jumpHeight: 2
   cameraTransform: {fileID: 7030164624479434673}
-  showRaycast: 1
+  showRaycast: 0
   raycastHeight: 2
   sprintMultiplier: 2
 --- !u!54 &2971510850594713849

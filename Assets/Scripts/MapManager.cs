@@ -10,7 +10,7 @@ public class MapManager : MonoBehaviour
         LoadMap();
     }
 
-    void LoadMap()
+    public void LoadMap()
     {
         if (!string.IsNullOrEmpty(mapToLoad))
         {

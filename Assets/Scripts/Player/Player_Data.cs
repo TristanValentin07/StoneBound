@@ -11,7 +11,6 @@ public class Player_Data
     public float staminaDrainRate = 10f;
     public float staminaRecoveryRate = 8f;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public Player_Data()
     {
         currentHealth = maxHealth;

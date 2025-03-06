@@ -26,7 +26,6 @@ public class EnemyAI : MonoBehaviour
         if (foundPlayer != null)
         {
             player = foundPlayer.transform;
-            Debug.Log("[EnemyAI] ✅ Joueur trouvé : " + player.name);
         }
         else
         {
@@ -43,14 +42,12 @@ public class EnemyAI : MonoBehaviour
         }
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-        Debug.Log("[EnemyAI] 📏 Distance au joueur : " + distanceToPlayer);
 
         if (distanceToPlayer < detectionRange && distanceToPlayer > stopDistance)
         {
             if (NavMesh.SamplePosition(player.position, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
                 agent.SetDestination(hit.position);
-                Debug.Log("[EnemyAI] 🚶 Se dirige vers le joueur !");
             }
             else
             {
@@ -60,7 +57,6 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            Debug.Log("[EnemyAI] ⏹️ Arrêt du mouvement (trop proche ou trop loin).");
             agent.ResetPath();
         }
     }
