@@ -20,7 +20,7 @@ public class EnemyDamage : MonoBehaviour
             }
             else
             {
-                Debug.LogError("❌ Health_Manager introuvable !");
+                Debug.LogError("Health_Manager introuvable !");
             }
         }
     }

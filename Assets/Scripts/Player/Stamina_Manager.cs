@@ -22,7 +22,7 @@ public class Stamina_Manager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("❌ Problème : `staminaBar` ou `playerData` est NULL !");
+            Debug.LogError(" Problème : `staminaBar` ou `playerData` est NULL !");
         }
     }
 }

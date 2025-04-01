@@ -14,7 +14,7 @@ public class EnemyAI : MonoBehaviour
 
         if (agent == null)
         {
-            Debug.LogError("[EnemyAI] ❌ NavMeshAgent manquant sur : " + gameObject.name);
+            Debug.LogError("[EnemyAI] NavMeshAgent manquant sur : " + gameObject.name);
         }
 
         InvokeRepeating("FindPlayer", 0f, 1f); // Cherche le joueur chaque seconde
@@ -29,7 +29,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[EnemyAI] ⚠️ Joueur non trouvé !");
+            Debug.LogWarning("[EnemyAI]  Joueur non trouvé !");
         }
     }
 
@@ -37,7 +37,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (player == null)
         {
-            Debug.LogWarning("[EnemyAI] ⚠️ Pas de joueur assigné.");
+            Debug.LogWarning("[EnemyAI]  Pas de joueur assigné.");
             return;
         }
 
@@ -51,7 +51,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("[EnemyAI] 🚫 Impossible d'aller vers le joueur (hors NavMesh).");
+                Debug.LogWarning("[EnemyAI]  Impossible d'aller vers le joueur (hors NavMesh).");
                 agent.ResetPath();
             }
         }

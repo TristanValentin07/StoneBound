@@ -71,3 +71,14 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Fichiers Unity trop lourds
+*.fbx
+*.exr
+*.hdr
+*.unitypackage
+*.zip
+*.blend1
+*.psd
+*.png
+

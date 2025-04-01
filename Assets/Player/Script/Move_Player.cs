@@ -28,7 +28,6 @@ public class Move_Player : MonoBehaviour
         if (_rigidbody != null)
         {
             _rigidbody.useGravity = true;
-            _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         }
 
         // Initialisation de Player_Data
@@ -42,7 +41,7 @@ public class Move_Player : MonoBehaviour
         }
         else
         {
-            Debug.LogError("❌ Stamina_Manager non trouvé dans la scène !");
+            Debug.LogError(" Stamina_Manager non trouvé dans la scène !");
         }
     }
 
@@ -120,7 +119,7 @@ public class Move_Player : MonoBehaviour
         else
         {
             isSprinting = false;
-            if (_isGrounded && _rigidbody.linearVelocity.magnitude < 0.1f) // Vérifie que le joueur est immobile avant de recharger
+            if (_isGrounded)
             {
                 playerData.currentStamina += playerData.staminaRecoveryRate * Time.deltaTime;
             }
