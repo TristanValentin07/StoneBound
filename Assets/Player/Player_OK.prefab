@@ -77,6 +77,37 @@ Transform:
   - {fileID: 6665835464853847507}
   m_Father: {fileID: 7407446549861236295}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7921139184191271087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3519041002797049359}
+  m_Layer: 0
+  m_Name: weaponHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3519041002797049359
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921139184191271087}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.275, y: -0.219, z: 0.621}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7030164624479434673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &67355277572998735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -143,7 +174,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7025441962750751230, guid: d5ae4072abf190b4ab095bf9613a91ee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3519041002797049359}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3578071229904800116, guid: d5ae4072abf190b4ab095bf9613a91ee, type: 3}
       insertIndex: -1
@@ -369,6 +403,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8f126327268a4af4086c7514ef65bb04, type: 3}
       insertIndex: -1
       addedObject: {fileID: -2515521690572262949}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8f126327268a4af4086c7514ef65bb04, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4658279764871475891}
   m_SourcePrefab: {fileID: 100100000, guid: 8f126327268a4af4086c7514ef65bb04, type: 3}
 --- !u!4 &7407446549861236295 stripped
 Transform:
@@ -484,3 +521,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeCameraScript: {fileID: 0}
+--- !u!114 &4658279764871475891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7892375589994865917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8571a94cc36d44940a130349d2a24816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponPrefabs:
+  - {fileID: 6945468927058713417, guid: cfa400a827554554a9424b28b0065d94, type: 3}
+  - {fileID: 356156737866611519, guid: 010116a11a19c8740ba03cabfd8682e9, type: 3}
+  - {fileID: 5704648714230315061, guid: 3e9c7535d9ee2a640a202a6b53d648e0, type: 3}
+  - {fileID: 4066083900560057491, guid: 37e5cc910b1397940a71316c47dae5ec, type: 3}
+  - {fileID: 5827945467102866696, guid: 936b1817ce052f342a19288c9650c1c0, type: 3}
+  - {fileID: 2110338208176226398, guid: 7131247670cb6034782cc449a6d7c0b4, type: 3}
+  - {fileID: 5827945467102866696, guid: 936b1817ce052f342a19288c9650c1c0, type: 3}
+  currentWeaponGO: {fileID: 0}

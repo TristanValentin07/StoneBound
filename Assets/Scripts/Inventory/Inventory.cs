@@ -8,12 +8,15 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-        // Initialise les slots vides
+        inventorySlots.Clear(); //on clean la liste
         for (int i = 0; i < inventorySize; i++)
         {
             inventorySlots.Add(null);
         }
+        //on alloue dynamiquement les slots à nulls
+        Debug.Log($"✅ Inventaire initialisé avec {inventorySlots.Count} slots.");
     }
+
 
     public bool AddItem(Item newItem)
     {
