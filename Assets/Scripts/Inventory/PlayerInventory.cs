@@ -1,13 +1,14 @@
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : Inventory
 {
     private Canvas inventoryUI;           // Canvas de l'inventaire
     public MonoBehaviour activeCameraScript;
     private Move_Player movePlayer;         // Script de déplacement du joueur
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         if (inventoryUI == null)
         {
             inventoryUI = GameObject.Find("InventoryUI").GetComponent<Canvas>();

@@ -101,8 +101,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7921139184191271087}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.275, y: -0.219, z: 0.621}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.27499998, y: -0.21899986, z: 0.6210003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -406,6 +406,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8f126327268a4af4086c7514ef65bb04, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4658279764871475891}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8f126327268a4af4086c7514ef65bb04, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6716359628092391830}
   m_SourcePrefab: {fileID: 100100000, guid: 8f126327268a4af4086c7514ef65bb04, type: 3}
 --- !u!4 &7407446549861236295 stripped
 Transform:
@@ -520,6 +523,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822cc45b082e9804abb0a5e34be2fd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySize: 6
+  inventorySlots: []
   activeCameraScript: {fileID: 0}
 --- !u!114 &4658279764871475891
 MonoBehaviour:
@@ -533,6 +538,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8571a94cc36d44940a130349d2a24816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponHolder: {fileID: 3519041002797049359}
   weaponPrefabs:
   - {fileID: 6945468927058713417, guid: cfa400a827554554a9424b28b0065d94, type: 3}
   - {fileID: 356156737866611519, guid: 010116a11a19c8740ba03cabfd8682e9, type: 3}
@@ -541,4 +547,20 @@ MonoBehaviour:
   - {fileID: 5827945467102866696, guid: 936b1817ce052f342a19288c9650c1c0, type: 3}
   - {fileID: 2110338208176226398, guid: 7131247670cb6034782cc449a6d7c0b4, type: 3}
   - {fileID: 5827945467102866696, guid: 936b1817ce052f342a19288c9650c1c0, type: 3}
+  - {fileID: 6998029925129311141, guid: fb61edef6fee1444bbc8b3903df09abe, type: 3}
+  - {fileID: 974347753776669465, guid: a8db215ef4fc84246be364aa225521a0, type: 3}
   currentWeaponGO: {fileID: 0}
+--- !u!114 &-6716359628092391830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7892375589994865917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e28dcfe840c3ccc469bf918bf5ac0c59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventorySize: 6
+  inventorySlots: []

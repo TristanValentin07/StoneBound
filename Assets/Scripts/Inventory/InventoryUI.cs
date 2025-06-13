@@ -19,6 +19,21 @@ public class InventoryUI : MonoBehaviour
             weaponManager = FindAnyObjectByType<WeaponManager>();
             Debug.Log($"🔧 WeaponManager récupéré dynamiquement : {weaponManager}");
         }
+        
+        if (inventory == null)
+        {
+            PlayerInventory playerInventory = FindAnyObjectByType<PlayerInventory>();
+            if (playerInventory != null)
+            {
+                inventory = playerInventory;
+                Debug.Log($"✅ Inventory trouvé et assigné dynamiquement : {inventory}");
+            }
+            else
+            {
+                Debug.LogError("❌ Aucun PlayerInventory trouvé dans la scène !");
+                return;
+            }
+        }
 
         InitUI();
     }

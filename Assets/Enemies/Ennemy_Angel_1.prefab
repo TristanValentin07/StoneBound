@@ -89,7 +89,6 @@ MonoBehaviour:
   detectionRange: 500
   stopDistance: 2
   maxHealth: 100
-  healthBarUIPrefab: {fileID: 2597738539917317131, guid: 5dd053e3ee44d15478c2c4204825c658, type: 3}
 --- !u!195 &8553149043567493204
 NavMeshAgent:
   m_ObjectHideFlags: 0

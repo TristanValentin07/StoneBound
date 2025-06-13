@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,37 +6,42 @@ public class WeaponPickup : MonoBehaviour
     public Item itemToPickup;
     public GameObject pressEUI; 
     public InventoryUI inventoryUI;
-    
+
     private bool playerInRange = false;
-    private Inventory inventory; // ➔ Reference fixée une fois pour toutes
+    private Inventory inventory = null;
 
     void Start()
     {
-        pressEUI.SetActive(false);
-
-        // Fixer l'inventaire une seule fois au début
-        inventory = FindAnyObjectByType<Inventory>();
-        if (inventory == null)
-            Debug.LogError("❌ Aucun Inventory trouvé dans la scène !");
+        if (pressEUI != null)
+            pressEUI.SetActive(false);
     }
 
     void Update()
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            if (inventory != null && inventory.AddItem(itemToPickup))
+            if (inventory == null)
             {
-                Debug.Log("✔ Arme ramassée !");
-                
+                Debug.LogWarning("❌ Impossible de ramasser : pas d'inventaire trouvé.");
+                return;
+            }
+
+            bool added = inventory.AddItem(itemToPickup);
+            if (added)
+            {
+                Debug.Log("✔ Arme ramassée et ajoutée à l'inventaire.");
+
                 if (inventoryUI != null)
                     inventoryUI.UpdateUI();
 
-                pressEUI.SetActive(false);
-                Destroy(gameObject);
+                if (pressEUI != null)
+                    pressEUI.SetActive(false);
+
+                Destroy(gameObject); // Supprime l'objet ramassé
             }
             else
             {
-                Debug.LogWarning("❌ Pickup échoué : Inventaire plein ou introuvable");
+                Debug.LogWarning("❌ Inventaire plein, impossible de ramasser.");
             }
         }
     }
@@ -46,7 +50,14 @@ public class WeaponPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            pressEUI.SetActive(true);
+            inventory = other.GetComponent<Inventory>();
+
+            if (inventory == null)
+                Debug.LogError("❌ Le joueur est entré mais n'a pas de script Inventory !");
+
+            if (pressEUI != null)
+                pressEUI.SetActive(true);
+
             playerInRange = true;
         }
     }
@@ -55,8 +66,11 @@ public class WeaponPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            pressEUI.SetActive(false);
+            if (pressEUI != null)
+                pressEUI.SetActive(false);
+
             playerInRange = false;
+            inventory = null;
         }
     }
 }

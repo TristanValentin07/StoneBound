@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class WeaponManager : MonoBehaviour
 {
-    private Transform weaponHolder;
+    public Transform weaponHolder;
     public List<GameObject> weaponPrefabs;
     private IWeapon currentWeapon;
 

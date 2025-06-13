@@ -6,7 +6,7 @@ public class Inventory : MonoBehaviour
     public int inventorySize = 36;
     public List<Item> inventorySlots = new List<Item>();
 
-    void Start()
+    protected virtual void Start()
     {
         inventorySlots.Clear(); //on clean la liste
         for (int i = 0; i < inventorySize; i++)
