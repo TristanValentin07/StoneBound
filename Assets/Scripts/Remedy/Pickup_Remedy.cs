@@ -1,34 +1,54 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RemedyPickup : MonoBehaviour
 {
-    public Item itemToPickup;
-    public GameObject pressEUI; // UI press E
-    public InventoryUI inventoryUI;
+    public Item itemToPickup;         // Le remède à ramasser
+    public GameObject pressEUI;       // L’UI “Appuyez sur E”
+    public InventoryUI inventoryUI;   // UI de l’inventaire
 
     private bool playerInRange = false;
-    private int remedyOwned;
+    private Inventory inventory = null;
+    private int remedyOwned = 0;
 
     void Start()
     {
-        pressEUI.SetActive(false);
+        // Cache le prompt au lancement
+        if (pressEUI != null)
+            pressEUI.SetActive(false);
+
+        // Récupère dynamiquement l’InventoryUI si non assigné
+        if (inventoryUI == null)
+            inventoryUI = FindAnyObjectByType<InventoryUI>();
     }
-    
+
     void Update()
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            Inventory inventory = FindAnyObjectByType<Inventory>();
-            if (inventory.AddItem(itemToPickup))
+            if (inventory == null)
             {
-                Debug.Log("✔ Remede ramassée !");
+                Debug.LogWarning("❌ Impossible de ramasser le remède : pas d’inventaire trouvé.");
+                return;
+            }
+
+            bool added = inventory.AddItem(itemToPickup);
+            if (added)
+            {
                 remedyOwned++;
-                Debug.Log(remedyOwned + "/3 remedes possédés");
-                inventoryUI.UpdateUI();
-                pressEUI.SetActive(false);
-                Destroy(gameObject); // supprimer le remède ramassée de la scène
+                Debug.Log($"✔ Remède ramassé ! ({remedyOwned} possédés)");
+
+                // Mise à jour de l’UI
+                if (inventoryUI != null)
+                    inventoryUI.UpdateUI();
+
+                // Masque le prompt et détruit l’objet
+                if (pressEUI != null)
+                    pressEUI.SetActive(false);
+                Destroy(gameObject);
+            }
+            else
+            {
+                Debug.LogWarning("❌ Inventaire plein, impossible de ramasser le remède.");
             }
         }
     }
@@ -37,7 +57,13 @@ public class RemedyPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            pressEUI.SetActive(true);
+            // Récupère le composant Inventory du joueur
+            inventory = other.GetComponent<Inventory>();
+            if (inventory == null)
+                Debug.LogError("❌ Le joueur n’a pas de script Inventory !");
+
+            if (pressEUI != null)
+                pressEUI.SetActive(true);
             playerInRange = true;
         }
     }
@@ -46,8 +72,10 @@ public class RemedyPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            pressEUI.SetActive(false);
+            if (pressEUI != null)
+                pressEUI.SetActive(false);
             playerInRange = false;
+            inventory = null;
         }
     }
 }

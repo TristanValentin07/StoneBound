@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1263264895379078415
+--- !u!1001 &3828235314501733929
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4be8e5051a00a0429ced131583ce45c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 46.31
+      value: 32.84
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c4be8e5051a00a0429ced131583ce45c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c4be8e5051a00a0429ced131583ce45c, type: 3}
       propertyPath: m_Name
-      value: boss_prism_on_floor
+      value: boss_prism_on_floor 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -58,23 +58,23 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c4be8e5051a00a0429ced131583ce45c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5552933326914976270}
+      addedObject: {fileID: 2718645044303955165}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c4be8e5051a00a0429ced131583ce45c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5611990321088872412}
+      addedObject: {fileID: 3945740577141763834}
   m_SourcePrefab: {fileID: 100100000, guid: c4be8e5051a00a0429ced131583ce45c, type: 3}
---- !u!1 &2110338208176226398 stripped
+--- !u!1 &4170885680910988152 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c4be8e5051a00a0429ced131583ce45c, type: 3}
-  m_PrefabInstance: {fileID: 1263264895379078415}
+  m_PrefabInstance: {fileID: 3828235314501733929}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &5552933326914976270
+--- !u!65 &2718645044303955165
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2110338208176226398}
+  m_GameObject: {fileID: 4170885680910988152}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -89,13 +89,13 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.045909423, y: 0.035965893, z: 0.019999996}
   m_Center: {x: 0.00022949219, y: 0.00068881985, z: 0.000000013113022}
---- !u!114 &5611990321088872412
+--- !u!114 &3945740577141763834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2110338208176226398}
+  m_GameObject: {fileID: 4170885680910988152}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e781fbcddbc5bd441a2d9c4e6a2245e6, type: 3}

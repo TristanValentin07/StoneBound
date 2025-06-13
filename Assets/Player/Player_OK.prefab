@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822cc45b082e9804abb0a5e34be2fd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySize: 6
+  inventorySize: 9
   inventorySlots: []
   activeCameraScript: {fileID: 0}
 --- !u!114 &4658279764871475891
@@ -562,5 +562,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28dcfe840c3ccc469bf918bf5ac0c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventorySize: 6
+  inventorySize: 9
   inventorySlots: []

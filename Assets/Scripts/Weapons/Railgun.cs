@@ -24,14 +24,21 @@ public class Railgun : MonoBehaviour, IWeapon
             ShowLaser(firePoint.position, hit.point);
 
             EnemyAI enemy = hit.collider.GetComponent<EnemyAI>();
+            Boss_AI boss = hit.collider.GetComponent<Boss_AI>();
+
             if (enemy != null)
             {
                 enemy.TakeDamage(100);
             }
+            else if (boss != null)
+            {
+                boss.TakeDamage(100);
+            }
             else
             {
-                Debug.LogWarning("Objet touché, mais pas d'EnemyAI dessus : " + hit.collider.name);
+                Debug.LogWarning("Touché, mais pas d’EnemyAI ni de Boss_AI sur : " + hit.collider.name);
             }
+
         }
         else
         {
