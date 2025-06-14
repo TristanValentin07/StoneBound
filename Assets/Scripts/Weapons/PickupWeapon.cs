@@ -37,7 +37,7 @@ public class WeaponPickup : MonoBehaviour
                 if (pressEUI != null)
                     pressEUI.SetActive(false);
 
-                Destroy(gameObject); // Supprime l'objet ramassé
+                Destroy(gameObject);
             }
             else
             {

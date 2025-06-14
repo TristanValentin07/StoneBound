@@ -30,10 +30,8 @@ public class Move_Player : MonoBehaviour
             _rigidbody.useGravity = true;
         }
 
-        // Initialisation de Player_Data
         playerData = new Player_Data();
 
-        // Trouver Stamina_Manager dans la scène
         staminaManager = FindAnyObjectByType<Stamina_Manager>();
         if (staminaManager != null)
         {
@@ -101,7 +99,6 @@ public class Move_Player : MonoBehaviour
         }
         else
         {
-            // ✅ Stop le mouvement immédiatement
             if (_isGrounded)
             {
                 _rigidbody.linearVelocity = new Vector3(0f, _rigidbody.linearVelocity.y, 0f);

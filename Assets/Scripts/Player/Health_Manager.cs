@@ -31,7 +31,7 @@ public class Health_Manager : MonoBehaviour
         playerData.currentHealth -= amount;
         Debug.Log($"[Health_Manager] 💥 Vie après dégâts : {playerData.currentHealth}/{playerData.maxHealth}");
 
-        UpdateHealthUI(); // Mets à jour l'UI ici
+        UpdateHealthUI();
 
         if (playerData.currentHealth <= 0)
         {

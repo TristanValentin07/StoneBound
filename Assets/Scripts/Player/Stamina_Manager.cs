@@ -6,14 +6,12 @@ public class Stamina_Manager : MonoBehaviour
     private Player_Data playerData;
     public Slider staminaBar;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void SetStaminaToPlayer(Player_Data data)
     {
         playerData = data;
         UpdateStaminaBar();
     }
-
-    // Update is called once per frame
+    
     public void UpdateStaminaBar()
     {
         if (staminaBar != null && playerData != null)

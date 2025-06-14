@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GameTimer : MonoBehaviour
 {
-    public float duration = 60f;
+    [Header("UI")]
     public Text timerText;
 
     private float timeRemaining;
@@ -12,8 +12,12 @@ public class GameTimer : MonoBehaviour
     void Start()
     {
         if (timerText == null)
+        {
             Debug.LogError("[GameTimer] timerText non assigné !");
-        timeRemaining = duration;
+            enabled = false;
+            return;
+        }
+        timeRemaining = GameSettings.TimerDuration(GameSettings.difficulty);
         UpdateDisplay();
     }
 
@@ -48,8 +52,6 @@ public class GameTimer : MonoBehaviour
         
         var hm = FindFirstObjectByType<Health_Manager>();
         if (hm != null)
-        {
             hm.TakeDamage(1000);
-        }
     }
 }

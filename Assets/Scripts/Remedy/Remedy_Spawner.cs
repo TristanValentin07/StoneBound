@@ -38,7 +38,8 @@ public class RemedySpawner : MonoBehaviour
             int randomIndex = Random.Range(0, availableSpawnPoints.Count);
             Transform spawnPoint = availableSpawnPoints[randomIndex];
 
-            Instantiate(remedyPrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject instance = Instantiate(remedyPrefab, spawnPoint.position, spawnPoint.rotation);
+            instance.SetActive(true);
 
             availableSpawnPoints.RemoveAt(randomIndex); // On enlève le point utilisé
         }

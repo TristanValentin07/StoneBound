@@ -9,14 +9,16 @@ public class EnemySpawner : MonoBehaviour
     public float spawnRate = 10f;
     public int maxEnemies = 3;
 
-    // Indique si le spawner est actif
     private bool spawning = true;
-    // Pool des ennemis disponibles
     private Queue<GameObject> enemyPool = new Queue<GameObject>();
 
     void Start()
     {
-        // Pré-instanciation de la pool avec le nombre maximum d'ennemis
+        var diff = GameSettings.difficulty;
+
+        spawnRate  = GameSettings.SpawnRate(diff);
+        maxEnemies = GameSettings.MaxEnemies(diff);
+
         for (int i = 0; i < maxEnemies; i++)
         {
             GameObject enemy = Instantiate(enemyPrefab);
@@ -24,7 +26,6 @@ public class EnemySpawner : MonoBehaviour
             enemyPool.Enqueue(enemy);
         }
 
-        // Démarre la coroutine de spawn
         StartCoroutine(SpawnEnemies());
     }
 
@@ -48,14 +49,12 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // Méthode à appeler par l'ennemi lorsqu'il meurt ou doit être réutilisé
     public void ReturnEnemy(GameObject enemy)
     {
         enemy.SetActive(false);
         enemyPool.Enqueue(enemy);
     }
 
-    // Permet d'activer/désactiver le spawn via un appel externe
     public void ToggleSpawning(bool isActive)
     {
         spawning = isActive;
