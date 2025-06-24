@@ -11,26 +11,35 @@ public class Switch_Camera : MonoBehaviour
     private AudioListener fpsAudio;
     private AudioListener tpsAudio;
 
-    private bool isThirdPerson = false;
+    public bool isThirdPerson = false; // ← Mis en public pour accès depuis d'autres scripts
+
+    public delegate void ViewChanged(bool isThirdPersonView);
+    public static event ViewChanged OnViewChanged; 
+    public static Switch_Camera Instance { get; private set; }
+
 
     void Start()
     {
-        fpsCamGO = transform.Find("Player_Camera")?.gameObject;
+        Instance = this;
 
-        GameObject tpsGO = GameObject.Find("Third_person_cam");
-        tpsCamGO = tpsGO;
+        fpsCamGO = transform.Find("CameraHolder/Player_Camera")?.gameObject;
+        tpsCamGO = GameObject.Find("CameraThirdHolder/Third_person_cam");
 
-        if (fpsCamGO == null || tpsCamGO == null)
-        {
-            Debug.LogError("Impossible de trouver les caméras !");
-            return;
-        }
+        if (fpsCamGO == null)
+            Debug.LogError("❌ FPS Camera GameObject introuvable");
+        if (tpsCamGO == null)
+            Debug.LogError("❌ TPS Camera GameObject introuvable");
 
-        fpsCamera = fpsCamGO.GetComponent<Camera>();
-        tpsCamera = tpsCamGO.GetComponent<Camera>();
+        fpsCamera = fpsCamGO?.GetComponent<Camera>();
+        tpsCamera = tpsCamGO?.GetComponent<Camera>();
 
-        fpsAudio = fpsCamGO.GetComponent<AudioListener>();
-        tpsAudio = tpsCamGO.GetComponent<AudioListener>();
+        if (fpsCamera == null)
+            Debug.LogError("❌ Composant Camera manquant sur FPS");
+        if (tpsCamera == null)
+            Debug.LogError("❌ Composant Camera manquant sur TPS");
+
+        fpsAudio = fpsCamGO?.GetComponent<AudioListener>();
+        tpsAudio = tpsCamGO?.GetComponent<AudioListener>();
 
         SetCameraState();
     }
@@ -42,18 +51,23 @@ public class Switch_Camera : MonoBehaviour
         {
             isThirdPerson = !isThirdPerson;
             SetCameraState();
+
+            // 🔔 Avertit les autres scripts du changement de vue
+            OnViewChanged?.Invoke(isThirdPerson);
         }
     }
 
     void SetCameraState()
     {
-        fpsCamGO.SetActive(!isThirdPerson);
-        tpsCamGO.SetActive(isThirdPerson);
+        bool isFPS = !isThirdPerson;
 
-        if (fpsCamera) fpsCamera.enabled = !isThirdPerson;
-        if (tpsCamera) tpsCamera.enabled = isThirdPerson;
+        if (fpsCamGO != null) fpsCamGO.SetActive(isFPS);
+        if (tpsCamGO != null) tpsCamGO.SetActive(!isFPS);
 
-        if (fpsAudio) fpsAudio.enabled = !isThirdPerson;
-        if (tpsAudio) tpsAudio.enabled = isThirdPerson;
+        if (fpsCamera != null) fpsCamera.enabled = isFPS;
+        if (tpsCamera != null) tpsCamera.enabled = !isFPS;
+
+        if (fpsAudio != null) fpsAudio.enabled = isFPS;
+        if (tpsAudio != null) tpsAudio.enabled = !isFPS;
     }
 }

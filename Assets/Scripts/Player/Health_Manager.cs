@@ -12,6 +12,7 @@ public class Health_Manager : MonoBehaviour
     private string sceneToLoad = "Menu";
     
     private bool isDead = false;
+    public bool godMode = false;
 
     public void SetHealthToPlayer(Player_Data data)
     {
@@ -28,6 +29,12 @@ public class Health_Manager : MonoBehaviour
     {
         if (playerData == null || isDead) return;
 
+        if (godMode)
+        {
+            Debug.Log("[Health_Manager] 🛡️ God Mode actif, aucun dégât pris.");
+            return;
+        }
+
         playerData.currentHealth -= amount;
         Debug.Log($"[Health_Manager] 💥 Vie après dégâts : {playerData.currentHealth}/{playerData.maxHealth}");
 
@@ -38,6 +45,7 @@ public class Health_Manager : MonoBehaviour
             Die();
         }
     }
+
 
     private void Die()
     {

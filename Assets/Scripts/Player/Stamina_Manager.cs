@@ -6,6 +6,8 @@ public class Stamina_Manager : MonoBehaviour
     private Player_Data playerData;
     public Slider staminaBar;
     
+    public bool infiniteStamina = false;
+    
     public void SetStaminaToPlayer(Player_Data data)
     {
         playerData = data;
@@ -16,6 +18,10 @@ public class Stamina_Manager : MonoBehaviour
     {
         if (staminaBar != null && playerData != null)
         {
+            if (infiniteStamina == true)
+            {
+                playerData.currentStamina = playerData.maxStamina;
+            }
             staminaBar.value = playerData.currentStamina / playerData.maxStamina;
         }
         else

@@ -59,6 +59,14 @@ public class Move_Player : MonoBehaviour
     {
         Move();
         CheckGroundStatus();
+        
+        // anti blocage du joueur dans le sol
+        if (!_isGrounded && _rigidbody.linearVelocity.magnitude < 0.1f)
+        {
+            Vector3 pushForward = transform.forward * 0.5f;
+            _rigidbody.AddForce(pushForward, ForceMode.VelocityChange);
+        }
+
     }
 
     private void HandleInput()

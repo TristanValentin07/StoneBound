@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class ThirdPersonFollowLook : MonoBehaviour
 {
-    public Transform playerBody; // Le joueur
+    public Transform playerBody;
     public float mouseSensitivity = 100f;
 
-    public Vector3 offset = new Vector3(0, 2, -4); // Position de la caméra
+    public Vector3 offset = new Vector3(0, 3f, -5f);
     public float smoothTime = 0.05f;
 
     private float _xRotation = 0f;
@@ -25,7 +25,7 @@ public class ThirdPersonFollowLook : MonoBehaviour
 
         // Rotation verticale
         _xRotation -= mouseY;
-        _xRotation = Mathf.Clamp(_xRotation, -40f, 60f);
+        _xRotation = Mathf.Clamp(_xRotation, -50f, 50f);
 
         // Tourner le joueur horizontalement
         playerBody.Rotate(Vector3.up * mouseX);
@@ -35,14 +35,20 @@ public class ThirdPersonFollowLook : MonoBehaviour
     {
         if (playerBody == null) return;
 
-        // Calcul de la position cible de la caméra
+        // Rotation de la caméra
         Quaternion rotation = Quaternion.Euler(_xRotation, playerBody.eulerAngles.y, 0);
-        Vector3 desiredPosition = playerBody.position + rotation * offset;
 
-        // Suivi fluide
+        // On garde la hauteur fixe (offset.y), mais on applique la rotation seulement au plan XZ
+        Vector3 flatOffset = new Vector3(offset.x, 0, offset.z); // ignore y
+        Vector3 rotatedOffset = rotation * flatOffset;
+
+        // On ajoute manuellement la hauteur
+        Vector3 desiredPosition = playerBody.position + rotatedOffset + Vector3.up * offset.y;
+
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref _velocity, smoothTime);
 
-        // Toujours regarder le joueur
-        transform.LookAt(playerBody.position + Vector3.up * 1.5f);
+        // La caméra regarde la tête du joueur
+        transform.LookAt(playerBody.position + Vector3.up * 1.7f);
     }
+
 }

@@ -19,8 +19,7 @@ public class EnemyAI : MonoBehaviour
 
         InvokeRepeating("FindPlayer", 0f, 1f);
     }
-
-
+    
     void FindPlayer()
     {
         GameObject foundPlayer = GameObject.FindGameObjectWithTag("Player");
@@ -41,13 +40,9 @@ public class EnemyAI : MonoBehaviour
 
         if (distanceToPlayer < detectionRange && distanceToPlayer > stopDistance)
         {
-            if (NavMesh.SamplePosition(player.position, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+            NavMesh.SamplePosition(player.position, out NavMeshHit hit, 2000.0f, NavMesh.AllAreas);
             {
                 agent.SetDestination(hit.position);
-            }
-            else
-            {
-                agent.ResetPath();
             }
         }
         else
@@ -73,16 +68,14 @@ public class EnemyAI : MonoBehaviour
 
     void Die()
     {
-        Debug.Log($"{gameObject.name} est mort !");
-
-        EnemySpawner spawner = FindAnyObjectByType<EnemySpawner>();
+        var spawner = FindAnyObjectByType<EnemyWaveSpawnerPool>();
         if (spawner != null)
         {
             spawner.ReturnEnemy(this.gameObject);
         }
         else
         {
-            Debug.LogWarning("❌ Aucun EnemySpawner trouvé, destruction forcée !");
+            Debug.LogWarning("❌ Aucun EnemyWaveSpawnerPool trouvé, destruction forcée !");
             Destroy(gameObject);
         }
     }

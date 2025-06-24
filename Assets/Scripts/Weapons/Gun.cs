@@ -33,7 +33,7 @@ public class SimplePistol : MonoBehaviour, IWeapon
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 direction = (transform.forward + new Vector3(0, 0.55f, 0)).normalized;
+            Vector3 direction = (transform.forward + new Vector3(0, 0f, 0)).normalized;
             rb.AddForce(direction * bulletForce, ForceMode.Impulse);
         }
         Destroy(bullet, 3f);
@@ -44,7 +44,7 @@ public class SimplePistol : MonoBehaviour, IWeapon
         hand = handTransform;
         transform.SetParent(handTransform);
         transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.Euler(30, -5, 90);
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
     public void Unequip()

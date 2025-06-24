@@ -10,12 +10,16 @@ public class VictorySupport : MonoBehaviour
     public GameObject uiActivate;
     public Image victoryScreen;
     public string menuSceneName = "Menu"; // Nom de la scène du menu principal
-    public float delayBeforeMenu = 3f; // Temps avant de revenir au menu
 
     private bool primeDeposited = false;
     private bool playerInRange = false;
     private WeaponManager playerWeaponManager;
     private GameObject placedPrime;
+    
+    private EnemyWaveSpawnerPool _nbrKill;
+    public Text nbr_kill_text;
+    public Text timePlayedText;
+    private GameTimer _gameTimer;
 
     void Update()
     {
@@ -97,16 +101,41 @@ public class VictorySupport : MonoBehaviour
     void TriggerVictory()
     {
         Debug.Log("🏆 VICTORY !");
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         if (victoryScreen != null)
         {
             victoryScreen.gameObject.SetActive(true);
         }
-        StartCoroutine(BackToMenu());
+        _nbrKill = FindAnyObjectByType<EnemyWaveSpawnerPool>();
+        if (_nbrKill != null && nbr_kill_text != null)
+        {
+            nbr_kill_text.text = "Kills : " + _nbrKill.KillCount.ToString();
+        }
+        _gameTimer = FindAnyObjectByType<GameTimer>();
+        if (_gameTimer != null && timePlayedText != null)
+        {
+            float timeRemaining = _gameTimer.GetTimeRemaining();
+            float duration = GameSettings.TimerDuration(GameSettings.difficulty);
+            float elapsedTime = duration - timeRemaining;
+
+            Debug.Log($"⏱ Temps restant : {timeRemaining:F2} sec");
+            Debug.Log($"⏳ Durée totale : {duration:F2} sec");
+            Debug.Log($"🕓 Temps écoulé : {elapsedTime:F2} sec");
+
+            int minutes = Mathf.FloorToInt(elapsedTime / 60f);
+            int seconds = Mathf.FloorToInt(elapsedTime % 60f);
+            timePlayedText.text = $"Time elapsed : {minutes:00}:{seconds:00}";
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ GameTimer ou timePlayedText est null !");
+        }
+
     }
 
-    System.Collections.IEnumerator BackToMenu()
+    public void BackToMenu()
     {
-        yield return new WaitForSeconds(delayBeforeMenu);
         SceneManager.LoadScene(menuSceneName);
     }
 }

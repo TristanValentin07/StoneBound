@@ -54,4 +54,10 @@ public class GameTimer : MonoBehaviour
         if (hm != null)
             hm.TakeDamage(1000);
     }
+    
+    public float GetTimeRemaining()
+    {
+        return timeRemaining;
+    }
+
 }
